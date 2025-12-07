@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxu1jkb0buldt"]
+
+[ext_resource type="Texture2D" uid="uid://ckk1k65ejdukx" path="res://asesino.png" id="1_glv2v"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(498, 226)
+scale = Vector2(0.25937513, 0.25723973)
+texture = ExtResource("1_glv2v")
