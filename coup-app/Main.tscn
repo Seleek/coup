@@ -1,10 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxu1jkb0buldt"]
+[gd_scene load_steps=3 format=3 uid="uid://dxu1jkb0buldt"]
 
-[ext_resource type="Texture2D" uid="uid://ckk1k65ejdukx" path="res://asesino.png" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://clfywvglqoi67" path="res://cardManager.gd" id="1_uu6xs"]
+[ext_resource type="PackedScene" uid="uid://ds3cey66qbglx" path="res://card.tscn" id="2_r0du0"]
 
 [node name="Main" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(498, 226)
-scale = Vector2(0.25937513, 0.25723973)
-texture = ExtResource("1_glv2v")
+[node name="cardManager" type="Node2D" parent="."]
+script = ExtResource("1_uu6xs")
+
+[node name="cardAsesino" parent="cardManager" instance=ExtResource("2_r0du0")]
+position = Vector2(280, 353)
+
+[node name="cardCondesa" parent="cardManager" instance=ExtResource("2_r0du0")]
+position = Vector2(696, 360)
