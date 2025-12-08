@@ -1,6 +1,7 @@
 extends Node2D
 
 var card_being_dragged
+var card_being_turn_up
 
 func _process(delta: float) -> void:
 	if card_being_dragged:
@@ -25,6 +26,13 @@ func raycast_check_for_card():
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
 		return result[0].collider.get_parent()
+	return null
+	
+
+func turn_up_a_card():
+	var card = raycast_check_for_card()
+	if card:
+		card_being_turn_up = card
 	return null
 
 # Called when the node enters the scene tree for the first time.
