@@ -14,3 +14,7 @@ config/name="coup app"
 run/main_scene="uid://c838vxdbvjgc2"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/vsync/vsync_mode=0
