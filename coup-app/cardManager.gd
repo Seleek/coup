@@ -1,5 +1,6 @@
 extends Node2D
 
+const COLLITION_MASK_CARD = 1
 
 var screen_size
 var card_being_dragged
@@ -24,12 +25,31 @@ func _input(event):
 		else:
 			card_being_dragged = null
 
+func connect_card_signals(card):
+	card.connect("hovered", on_hovered_over_card)
+	card.connect("hovered_off", on_hovered_off_card)
+
+
+func on_hovered_over_card(card):
+	highlight_card(card, true)
+	
+func on_hovered_off_card(card):
+	highlight_card(card, false)
+	
+func highlight_card(card, hovered):
+	if hovered:
+		card.scale = Vector2(1.05,1.05)
+		card.z_index = 2
+	else:
+		card.scale = Vector2(1,1)
+		card.z_index = 1
+
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
 	var parameters = PhysicsPointQueryParameters2D.new()
 	parameters.position = get_global_mouse_position()
 	parameters.collide_with_areas = true
-	parameters.collision_mask = 1
+	parameters.collision_mask
 	var result = space_state.intersect_point(parameters)
 	if result.size()>0:
 		return result[0].collider.get_parent()
