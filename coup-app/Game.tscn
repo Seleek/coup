@@ -1,3 +1,77 @@
 [gd_scene format=3 uid="uid://cjutsrhialeqx"]
 
 [node name="Game" type="Node2D"]
+
+[node name="raiz" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="fondo" type="Panel" parent="raiz"]
+layout_mode = 0
+offset_right = 1150.0
+offset_bottom = 648.0
+
+[node name="listaJugadores" type="VBoxContainer" parent="raiz"]
+layout_mode = 0
+offset_left = -2.0
+offset_top = 272.0
+offset_right = 1148.0
+offset_bottom = 646.0
+
+[node name="contenedorJugador" type="HBoxContainer" parent="raiz/listaJugadores"]
+layout_mode = 2
+
+[node name="nombreJugador" type="Label" parent="raiz/listaJugadores/contenedorJugador"]
+layout_mode = 2
+
+[node name="monedasJugador" type="Label" parent="raiz/listaJugadores/contenedorJugador"]
+layout_mode = 2
+
+[node name="cartasInfluencia" type="HBoxContainer" parent="raiz/listaJugadores/contenedorJugador"]
+layout_mode = 2
+
+[node name="carta1" type="Panel" parent="raiz/listaJugadores/contenedorJugador/cartasInfluencia"]
+layout_mode = 2
+
+[node name="carta2" type="Panel" parent="raiz/listaJugadores/contenedorJugador/cartasInfluencia"]
+layout_mode = 2
+
+[node name="acciones" type="Control" parent="raiz"]
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 169.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="raiz/acciones"]
+layout_mode = 0
+offset_right = 1147.0
+offset_bottom = 121.0
+
+[node name="ingresos" type="Button" parent="raiz/acciones/VBoxContainer"]
+layout_mode = 2
+
+[node name="ayudaExterior" type="Button" parent="raiz/acciones/VBoxContainer"]
+layout_mode = 2
+
+[node name="coup" type="Button" parent="raiz/acciones/VBoxContainer"]
+layout_mode = 2
+
+[node name="impuestos" type="Button" parent="raiz/acciones/VBoxContainer"]
+layout_mode = 2
+
+[node name="robar" type="Button" parent="raiz/acciones/VBoxContainer"]
+layout_mode = 2
+
+[node name="intercambiar" type="Button" parent="raiz/acciones/VBoxContainer"]
+layout_mode = 2
+
+[node name="asesinar" type="Button" parent="raiz/acciones/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="raiz/acciones"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 83.0
+offset_right = 118.0
+offset_bottom = 133.0
