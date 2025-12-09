@@ -27,6 +27,11 @@ func update_ui():
 					card_node.get_node("Label").text = "Influencia"
 			else:
 				card_node.get_node("Label").text = "PERDIDA"
-			
+	
+	#BOTONES
+	
+	
+	
+		
 func _process(delta: float) -> void:
 	pass
