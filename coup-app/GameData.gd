@@ -61,8 +61,30 @@ func get_player(index):
 func get_current_player():
 	return players[currently_player_index]
 	
+#///////////////////////////
+#BOTONES DE ACCIÓN  AAAAAAAAAAAAAAA
+#////////////////////////////
 
+func announce_action(action_name: String, target_index: int = -1):
+	var actor = get_current_player()
+	if ACTION_COSTS.has(action_name) and actor.coins < ACTION_COSTS[action_name]:
+		emit_signal("log_message", "%s no tiene suficientes monedas para %s." % [actor.name, action_name])
+		return
+		
+	var claimed_char = "N/A"
+	if action_name == "Impuestos": claimed_char = "Duque"
+	if action_name == "Asesinar": claimed_char = "Asesino"
+	if action_name == "Robar": claimed_char = "Capitan"
+	if action_name == "Intercambio": claimed_char = "Embajador"
 	
+	active_action = {
+		"name": action_name,
+		"actor_index": currently_player_index,
+		"target_index": target_index,
+		"claimed_character": claimed_char
+	}
+	
+	emit_signal ("log_message", "%s anuncia la acción: %s (personaje: %s)." % [actor.name, action_name, claimed_char])
 	
 	
 # Called when the node enters the scene tree for the first time.
