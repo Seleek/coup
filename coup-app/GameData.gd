@@ -86,7 +86,54 @@ func announce_action(action_name: String, target_index: int = -1):
 	
 	emit_signal ("log_message", "%s anuncia la acción: %s (personaje: %s)." % [actor.name, action_name, claimed_char])
 	
+	if action_name == "Ingresos" or (action_name == "Coup" and actor.xoins >=7):
+		current_game_state = GameState.EXECUTING_ACTION
+		execute_action(active_action)
+		return
 	
+#//////////////////////////////
+#EJECUTAR LA ACCION Y FIN DE TURNO
+#//////////////////////////////
+func execute_action(action_data:Dictionary):
+	var action_name = action_data.name
+	var actor = get_player(action_data.actor_index)
+	var target = get_player(action_data.target_index) if action_data.target_index != -1 else null
+	
+	match action_name:
+		"Ingresos":
+			actor.coins += 1
+		"Ayuda exterior":
+			actor.coins += 2
+		"Impuestos":
+			actor.coins +- 3
+		"Robar":
+			var stolen = min(target.coins,2) if target else 0
+			actor.coins += stolen
+			target.coins -= stolen
+		"Intercambio":
+			var card1 = draw_card()
+			var card2 = draw_card()
+			deck.append(actor.influence.pop_front())
+			deck.append(actor.influence.pop_front())
+			actor.influence.append(card1)
+			actor.influence.append(card2)
+			deck.shuffle()
+		"Asesinar":
+			actor.coins -= 3
+			if target:
+				request_influence_loss(action_data.target_index, "por Asesinato")
+				return
+		"Coup":
+			actor.coins -=7
+			if target:
+				request_influence_loss(action_data.target_index, "por Coup")
+				return
+	emit_signal("log_message", "Accion %s ejecutada exitosamente." % action_name)
+	next_turn()
+		
+		
+	
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
