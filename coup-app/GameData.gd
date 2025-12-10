@@ -1,8 +1,22 @@
 extends Node
 
+signal game_state_changed
+signal player_action(actor_name, action_name, target_name)
+
 const MAX_INFLUENCE = 2
 const START_COINS = 2
 const INFLUENCE_TYPES = ["Duque", "Asesino", "Capitan", "Embajador", "Condesa"]
+const ACTION_COSTS = {"Asesinar" : 3, "Coup" : 7}
+
+enum GameState{
+	WAITING_FOR_ACTION,
+	WAITING_FOR_CHALLENGE,
+	WAITING_FOR_BLOCK,
+	RESOLVING_CHALLENGE,
+	RESOLVING_BLOCK_CHALLENGE,
+	EXECUTING_ACTION,
+	INFLUENCE_LOSS
+}
 
 var players = []
 var deck = []
@@ -35,7 +49,11 @@ func draw_card():
 
 func get_current_player():
 	return players[currently_player_index]
+	
 
+	
+	
+	
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
