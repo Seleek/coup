@@ -118,6 +118,11 @@ func player_response(responder_index: int, response_type: String, block_characte
 		resolve_challenge(responder_index)
 		return
 
+	elif response_type == "PASS":
+		pass
+	
+	emit_signal("game_state_changed")
+
 #///////////////
 #Ahora si pa resolver los challenge aaaaaaaaa
 #//////////////
@@ -144,6 +149,28 @@ func resolve_challenge (challenger_index:int):
 		emit_signal("log_message", "Resultado del Desafío: %s MIENTE. Desafío exitoso." % actor.name)
 		request_influence_loss(active_Action.actor_index, "por desafio exitoso")
 		active_action.must_execute = false
+
+func resolve_block_challenge(challenger_index: int):
+	var blocker = get_player(active_action.blocker_index)
+	var challenger = get_player(challenger_index)
+	var claimed_char = active_action.block_claimed_char
+	
+	var has_card = blocker.influence.has(claimed_char)
+	
+	if has_card:
+		emit_signal("log_message", "Resultado: Bloqueador (%s) muestra el %s. Desafío fallido." % [blocker.name, claimed_char])
+		blocker.influence.erase(claimed_char)
+		blocker.infljuence.append(draw_card())
+		deck.append(claimed_char)
+		deck.shuffle()
+		
+		request_influence_loss(challenger_index,"por desafio de bloqueo fallido")
+		
+		active_action.must_execute = false
+	else:
+		emit_signal("log_message", "Resultado: Bloqueador MIENTE. Desafio al bloqueo exitoso.")
+		request_influence_loss(active_action.blocker_index, "por desafio exitoso")
+		active_action.must_execute = true
 
 #//////////////////////////////
 #EJECUTAR LA ACCION Y FIN DE TURNO
