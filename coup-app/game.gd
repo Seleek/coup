@@ -24,24 +24,12 @@ func update_ui():
 	for i in range (GameData.players.size()):
 		player_ui_nodes[i].update_info(GameData.players[i], i)
 	
-	var is_waiting_for_action = GameData.current_game_stte == GameData.GameState.WAITING_FOR_ACTION
-	$ActionPanel.visible = is_waiting_for_Action
-			
-		#player_ui.get_node("nombreJugador").text = "%s (%s)" % ["**" + player_data.name + "**" if i == GameData.current_player_index else player_data.name, "Turno Actual" if i == GameData.current_player_index else ""]
-		player_ui.get_node("monedas").text = "Monedas: %d" % player_data.coins
-			
-		var card_container = player_ui.get_node("cartasInfluencia")
-		for j in range(GameData.MAX_INFLUENCE):
-			var card_node = card_container.get_child(j)
-				
-			if j < player_data.influence.size():
-				if i == GameData.current_player_index:
-					card_node.get_node("Label").text = player_data.indluence[j]
-				else:
-					card_node.get_node("Label").text = "Influencia"
-			else:
-				card_node.get_node("Label").text = "PERDIDA"
+	var is_waiting_for_action = GameData.current_game_state == GameData.GameState.WAITING_FOR_ACTION
+	$ActionPanel.visible = is_waiting_for_action
 	
+	if is_waiting_for_action:
+		$ActionPanel/GridContainer/Coup.disabled = current_player_data.coins < 7
+		$ActionPanel/GridContainer/Asesinar.disable = current_player_data.coins <3
 	#BOTONES
 	
 	
