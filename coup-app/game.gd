@@ -21,12 +21,13 @@ func _ready():
 func update_ui():
 	var current_player = GameData.get_current_player()
 		
-	var player_ui_nodes = $listaJugadores.get_children()
 	for i in range (GameData.players.size()):
-		var player_data = GameData.players[i]
-		var player_ui = player_ui_nodes[i]
+		player_ui_nodes[i].update_info(GameData.players[i], i)
+	
+	var is_waiting_for_action = GameData.current_game_stte == GameData.GameState.WAITING_FOR_ACTION
+	$ActionPanel.visible = is_waiting_for_Action
 			
-		player_ui.get_node("nombreJugador").text = "%s (%s)" % ["**" + player_data.name + "**" if i == GameData.current_player_index else player_data.name, "Turno Actual" if i == GameData.current_player_index else ""]
+		#player_ui.get_node("nombreJugador").text = "%s (%s)" % ["**" + player_data.name + "**" if i == GameData.current_player_index else player_data.name, "Turno Actual" if i == GameData.current_player_index else ""]
 		player_ui.get_node("monedas").text = "Monedas: %d" % player_data.coins
 			
 		var card_container = player_ui.get_node("cartasInfluencia")
