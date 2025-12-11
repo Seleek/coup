@@ -43,3 +43,7 @@ text = "Pasar"
 [node name="BlockButton" type="Button" parent="contenedorJugador/ActionButtons"]
 layout_mode = 2
 text = "Bloquear"
+
+[connection signal="pressed" from="contenedorJugador/ActionButtons/ChallengeButton" to="contenedorJugador" method="_on_challenge_button_pressed"]
+[connection signal="pressed" from="contenedorJugador/ActionButtons/PassButton" to="contenedorJugador" method="_on_pass_button_pressed"]
+[connection signal="pressed" from="contenedorJugador/ActionButtons/BlockButton" to="contenedorJugador" method="_on_block_button_pressed"]

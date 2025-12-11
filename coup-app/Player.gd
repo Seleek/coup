@@ -51,13 +51,6 @@ func update_info(data: Dictionary, index: int):
 	if GameData.current_game_state == GameData.GameState.WAITING_FOR_ACTION:
 		if data.coins >= 10:
 			pass
-func _on_BlockButton_pressed():
-	if GameData.active_action.name == "Ayuda Externa":
-		GameData.player_response(player_index, "BLOCK", "Duque")
-	else:
-		pass
-	
-	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -75,5 +68,9 @@ func _on_pass_button_pressed():
 	GameData.player_response(player_index, "PASS")
 
 
-func _on_block_button_pressed() -> void:
-	pass # Replace with function body.
+func _on_block_button_pressed():
+	if GameData.active_action.name == "Ayuda Externa":
+		GameData.player_response(player_index, "BLOCK", "Duque")
+	else:
+		pass
+	

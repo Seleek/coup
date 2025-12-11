@@ -2,6 +2,8 @@ extends Control
 
 const PLAYER_SCENE = preload("res://Player.tscn")
 var player_ui_nodes = []
+var selecting_target = false
+var pending_action_name
 
 
 func _ready():
@@ -31,6 +33,14 @@ func update_ui():
 		$ActionPanel/GridContainer/Coup.disabled = current_player_data.coins < 7
 		$ActionPanel/GridContainer/Asesinar.disable = current_player_data.coins <3
 
+func start_target_selection(action_name: String):
+	selecting_target = true
+	pending_action_name = action_name
+	$ActionPanel.visible = false
+	append_to_log(GameData.get_current_player().name + " debe seleccionar un objetivo para: " + action_name)
+	for node in player_ui_nodes:
+		node.set_target_mode(true)
+	
 
 #///////////////////
 #Manejo de la logica de turno
@@ -67,8 +77,7 @@ func _on_intercambio_pressed():
 	GameData.announce_Action("Intercambio")
 
 func _on_asesinar_pressed():
-	var target_index = (GameData.current_player_index + 1) % GameData.players.size()
-	GameData.announce_action("Asesinar", target_index)
+	start_target_selection("Asesinar")
 
 func _on_robar_pressed():
 	var target_index = (GameData.current_player_index + 1) % GameData.players.size()
@@ -77,6 +86,14 @@ func _on_robar_pressed():
 func _on_coup_pressed():
 	var target_index = (GameData.current_player_index + 1) % GameData.players.size()
 	GameData.announce_action("Coup", target_index)
+
+func target_selected(target_index: int):
+	selecting_target=false
+	for node in player_ui_nodes:
+		node.set_target_mode(false)
+	GameData.announce_action(pending_action_name, target_index)
+	pending_action_name = ""
+	update_ui()
 
 #////////
 #logloglog
