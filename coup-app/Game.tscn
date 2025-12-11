@@ -100,4 +100,7 @@ text = "Crear partida"
 layout_mode = 2
 text = "Unirse"
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
