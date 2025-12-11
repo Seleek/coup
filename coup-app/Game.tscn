@@ -1,61 +1,101 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5oddtcj5wfgt"]
+[gd_scene load_steps=3 format=3 uid="uid://b5oddtcj5wfgt"]
 
 [ext_resource type="Script" uid="uid://cuamdqp1chsld" path="res://Game.gd" id="1_wbfu4"]
+[ext_resource type="PackedScene" uid="uid://cjutsrhialeqx" path="res://Player.tscn" id="2_xkndl"]
 
 [node name="Game" type="Node2D"]
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_wbfu4")
 
-[node name="PlayerContainer" type="VBoxContainer" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 1147.0
+offset_bottom = 649.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Player" parent="Control/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_xkndl")]
+
+[node name="Player2" parent="Control/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_xkndl")]
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Log" type="TextEdit" parent="Control/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PlayerContainer" type="VBoxContainer" parent="Control/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ActionPanel" type="Panel" parent="Control/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1139.0
+offset_bottom = 241.0
 
-[node name="ActionPanel" type="Panel" parent="Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="GridContainer" type="GridContainer" parent="Control/ActionPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Ingresos" type="Button" parent="Control/ActionPanel/GridContainer"]
+[node name="Ingresos" type="Button" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer"]
 layout_mode = 2
+text = "Ingresos"
 
-[node name="AyudaExterna" type="Button" parent="Control/ActionPanel/GridContainer"]
+[node name="AyudaExterna" type="Button" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer"]
 layout_mode = 2
+text = "Ayuda Externa"
 
-[node name="Impuestos" type="Button" parent="Control/ActionPanel/GridContainer"]
+[node name="Impuestos" type="Button" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer"]
 layout_mode = 2
+text = "Impuestos"
 
-[node name="Asesinar" type="Button" parent="Control/ActionPanel/GridContainer"]
+[node name="Asesinar" type="Button" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer"]
 layout_mode = 2
+text = "Asesinar"
 
-[node name="Robar" type="Button" parent="Control/ActionPanel/GridContainer"]
+[node name="Robar" type="Button" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer"]
 layout_mode = 2
+text = "Robar"
 
-[node name="Intercambio" type="Button" parent="Control/ActionPanel/GridContainer"]
+[node name="Intercambio" type="Button" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer"]
 layout_mode = 2
+text = "Intercambio"
 
-[node name="Coup" type="Button" parent="Control/ActionPanel/GridContainer"]
+[node name="Coup" type="Button" parent="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer"]
 layout_mode = 2
+text = "Coup"
 
-[node name="Log" type="TextEdit" parent="Control"]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
-
-[connection signal="pressed" from="Control/ActionPanel/GridContainer/Ingresos" to="Control" method="_on_ingresos_pressed"]
-[connection signal="pressed" from="Control/ActionPanel/GridContainer/AyudaExterna" to="Control" method="_on_ayuda_externa_pressed"]
-[connection signal="pressed" from="Control/ActionPanel/GridContainer/Impuestos" to="Control" method="_on_impuestos_pressed"]
-[connection signal="pressed" from="Control/ActionPanel/GridContainer/Asesinar" to="Control" method="_on_asesinar_pressed"]
-[connection signal="pressed" from="Control/ActionPanel/GridContainer/Robar" to="Control" method="_on_robar_pressed"]
-[connection signal="pressed" from="Control/ActionPanel/GridContainer/Intercambio" to="Control" method="_on_intercambio_pressed"]
-[connection signal="pressed" from="Control/ActionPanel/GridContainer/Coup" to="Control" method="_on_coup_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer/Ingresos" to="Control" method="_on_ingresos_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer/AyudaExterna" to="Control" method="_on_ayuda_externa_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer/Impuestos" to="Control" method="_on_impuestos_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer/Asesinar" to="Control" method="_on_asesinar_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer/Robar" to="Control" method="_on_robar_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer/Intercambio" to="Control" method="_on_intercambio_pressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/VBoxContainer/ActionPanel/GridContainer/Coup" to="Control" method="_on_coup_pressed"]

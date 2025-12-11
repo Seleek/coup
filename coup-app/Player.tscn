@@ -5,10 +5,9 @@
 [node name="Player" type="Node2D"]
 
 [node name="contenedorJugador" type="HBoxContainer" parent="."]
-offset_left = -2.0
-offset_top = 272.0
-offset_right = 1148.0
-offset_bottom = 373.0
+offset_top = -1.0
+offset_right = 1150.0
+offset_bottom = 100.0
 script = ExtResource("1_wbfu4")
 
 [node name="listaJugadores" type="VBoxContainer" parent="contenedorJugador"]
@@ -44,6 +43,10 @@ text = "Pasar"
 layout_mode = 2
 text = "Bloquear"
 
+[node name="TargetButton" type="Button" parent="contenedorJugador"]
+layout_mode = 2
+
 [connection signal="pressed" from="contenedorJugador/ActionButtons/ChallengeButton" to="contenedorJugador" method="_on_challenge_button_pressed"]
 [connection signal="pressed" from="contenedorJugador/ActionButtons/PassButton" to="contenedorJugador" method="_on_pass_button_pressed"]
 [connection signal="pressed" from="contenedorJugador/ActionButtons/BlockButton" to="contenedorJugador" method="_on_block_button_pressed"]
+[connection signal="pressed" from="contenedorJugador/TargetButton" to="contenedorJugador" method="_on_target_button_pressed"]

@@ -5,6 +5,7 @@ extends HBoxContainer
 @onready var challenge_button = $ActionButtons/ChallengeButton
 @onready var pass_button = $ActionButtons/PassButton
 @onready var block_button = $ActionButtons/BlockButton
+@onready var target_button = $TargetButton
 
 var player_data = null
 var player_index = -1
@@ -55,6 +56,13 @@ func update_info(data: Dictionary, index: int):
 func _process(delta: float) -> void:
 	pass
 
+func set_target_mode(is_Active: bool):
+	target_button.visible = is_Active and not player_data.is_out and player_index != GameData.current_player_index
+	
+	if target_button.visible:
+		self.modulate = Color.GREEN
+	else:
+		self.modulate = Color.RED if player_index == GameData.current_player_index else Color.WHITE
 
 func _on_challenge_button_pressed():
 	if GameData.current_game_state == GameData.GameState.WAITING_FOR_CHALLENGE:
@@ -74,3 +82,9 @@ func _on_block_button_pressed():
 	else:
 		pass
 	
+
+
+func _on_target_button_pressed():
+	if GameData.get_node("/root/Game").selecting_target:
+		if player_index != GameData.current_player_index:
+			GameData.get_node("/root/Game").target_selected(player_index)

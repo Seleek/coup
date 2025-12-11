@@ -1,5 +1,13 @@
 extends Control
 
+@onready var main_vbox = $MarginContainer/VBoxContainer
+@onready var top_players_container = main_vbox.get_node("TopPlayersContainer")
+@onready var middle_area_container = main_vbox.get_node("MiddleAreaContainer")
+@onready var bottom_container = main_vbox.get_node("BottomContainer")
+@onready var log_display = middle_area_container.get_node("Log")
+@onready var action_panel = bottom_container.get_node("ActionPanel")
+@onready var player_container = bottom_container.get_node("PlayerContainer") 
+
 const PLAYER_SCENE = preload("res://Player.tscn")
 var player_ui_nodes = []
 var selecting_target = false
