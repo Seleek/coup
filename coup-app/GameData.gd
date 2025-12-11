@@ -103,6 +103,48 @@ func announce_action(action_name: String, target_index: int = -1):
 			if i != currently_player_index and not players[i].is_out:
 				emit_signal("action_requested", i, {"type": "CHALLENGE", "action_name": action_name})
 	emit_signal("game_state_changed")
+	
+#//////////////
+#Llamadas a la interfaz de usuario
+#///////////////
+func player_response(responder_index: int, response_type: String, block_character: String = ""):
+	var action = active_action.name
+	var actor = get_player(active_action.actor_index)
+	var responder = get_player(responder_index)
+	
+	if response_type == "CHALLENGE":
+		emit_signal("log_message", "%s DESAFÍA la acción de %s." % [responder.name, actor.name])
+		current_game_state = GameState.RESOLVING_CHALLENGE
+		resolve_challenge(responder_index)
+		return
+
+#///////////////
+#Ahora si pa resolver los challenge aaaaaaaaa
+#//////////////
+func resolve_challenge (challenger_index:int):
+	var actor = get_player(active_action.actor_index)
+	var challenger = get_player(challenger_index)
+	var claimed_char = active_action.claimed_character
+	
+	var has_card = actor.influence.has(claimed_char)
+	
+	if has_card:
+		emit_signal("log_message", "Resultado del Desafío: %s muestra el %s. Desafío fallido." % [actor.name, claimed_char])
+		
+		actor.influence.erase(claimed_char)
+		actor.influence.append(draw_card())
+		deck.append(claimed_char)
+		deck.shuffle()
+		
+		request_influence_loss(challenger_index, "por desafio fallido")
+		
+		active_action.must_execute = true
+		
+	else:
+		emit_signal("log_message", "Resultado del Desafío: %s MIENTE. Desafío exitoso." % actor.name)
+		request_influence_loss(active_Action.actor_index, "por desafio exitoso")
+		active_action.must_execute = false
+
 #//////////////////////////////
 #EJECUTAR LA ACCION Y FIN DE TURNO
 #//////////////////////////////
