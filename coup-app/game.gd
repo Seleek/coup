@@ -19,7 +19,7 @@ func _ready():
 	update_ui()
 	
 func update_ui():
-	var current_player = GameData.get_current_player()
+	var current_player_data = GameData.get_current_player()
 		
 	for i in range (GameData.players.size()):
 		player_ui_nodes[i].update_info(GameData.players[i], i)
@@ -44,9 +44,45 @@ func handle_action_request(player_index: int, options:Dictionary):
 		GameData.player_response(GameData.active_Action.blocker_index, "CHALLENGE_BLOCK_RESPONSE", "PASS")
 
 #///////////////////////
+#configuracion de botones
 #//////////////////////
-		
+
 		
 		
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_ingresos_pressed():
+	GameData.announce_action("Ingresos")
+	
+# Replace with function body.
+func _on_ayuda_externa_pressed():
+	GameData.announce_Action("Ayuda Externa")
+
+func _on_impuestos_pressed():
+	GameData.announce_action("Impuestos")
+
+func _on_intercambio_pressed():
+	GameData.announce_Action("Intercambio")
+
+func _on_asesinar_pressed():
+	var target_index = (GameData.current_player_index + 1) % GameData.players.size()
+	GameData.announce_action("Asesinar", target_index)
+
+func _on_robar_pressed():
+	var target_index = (GameData.current_player_index + 1) % GameData.players.size()
+	GameData.announce_Action("Robar", target_index)
+
+func _on_coup_pressed():
+	var target_index = (GameData.current_player_index + 1) % GameData.players.size()
+	GameData.announce_action("Coup", target_index)
+
+#////////
+#logloglog
+#////////
+
+func append_to_log(message: String):
+	var log = $Log
+	log.text += message + "\n"
+	log.scroll_vertical = log.get_v_scroll_bar().max_value

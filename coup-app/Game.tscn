@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://b5oddtcj5wfgt"]
+[gd_scene load_steps=2 format=3 uid="uid://b5oddtcj5wfgt"]
+
+[ext_resource type="Script" uid="uid://cuamdqp1chsld" path="res://Game.gd" id="1_wbfu4"]
 
 [node name="Game" type="Node2D"]
 
@@ -7,6 +9,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_wbfu4")
 
 [node name="PlayerContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 0
@@ -48,3 +51,11 @@ layout_mode = 2
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
+
+[connection signal="pressed" from="Control/ActionPanel/GridContainer/Ingresos" to="Control" method="_on_ingresos_pressed"]
+[connection signal="pressed" from="Control/ActionPanel/GridContainer/AyudaExterna" to="Control" method="_on_ayuda_externa_pressed"]
+[connection signal="pressed" from="Control/ActionPanel/GridContainer/Impuestos" to="Control" method="_on_impuestos_pressed"]
+[connection signal="pressed" from="Control/ActionPanel/GridContainer/Asesinar" to="Control" method="_on_asesinar_pressed"]
+[connection signal="pressed" from="Control/ActionPanel/GridContainer/Robar" to="Control" method="_on_robar_pressed"]
+[connection signal="pressed" from="Control/ActionPanel/GridContainer/Intercambio" to="Control" method="_on_intercambio_pressed"]
+[connection signal="pressed" from="Control/ActionPanel/GridContainer/Coup" to="Control" method="_on_coup_pressed"]
