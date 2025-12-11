@@ -1,7 +1,7 @@
 extends HBoxContainer
 @onready var name_label = $listaJugadores/nombreJugador
 @onready var coins_label = $listaJugadores/monedasJugador
-@onready var ifluence_containet = $cartasInfluencia
+@onready var influence_container = $cartasInfluencia
 @onready var challenge_button = $ActionButtons/ChallengeButton
 @onready var pass_button = $ActionButtons/PassButton
 @onready var block_button = $ActionButtons/BlockButton
@@ -23,6 +23,22 @@ func update_info(data: Dictionary, index: int):
 	self.visible = not data.is_out
 	name_label.text = data.name
 	coins_label.text = "Monedas: %d" % data.coins
+	
+	for i in range (GameData.MAX_INFLUENCE):
+		var card_node = influence_container.get_child(i)
+		
+		if i < data.influence.size():
+			card_node.visible = true
+			var card_name = data.influence[i] if player_index == GameData.current_player_index else "INFLUENCIA"
+			card_node.get_node("nombreJugador").text = card_name
+		else:
+			card_node.visible = false
+			
+	challenge_button.visible = false
+	pass_button.visible = false
+	block_button.visible = false
+	
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
