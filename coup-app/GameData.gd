@@ -90,7 +90,19 @@ func announce_action(action_name: String, target_index: int = -1):
 		current_game_state = GameState.EXECUTING_ACTION
 		execute_action(active_action)
 		return
-	
+		
+	if action_name == "Ayuda Externa":
+		current_game_state = GameState.WAITING_FOR_BLOCK
+		for i in range(players.size()):
+			if i != currently_player_index and not players[i].is_out:
+				emit_signal("action_requested", i, {"type": "BLOCK", "action_name": action_name, "block_char": "Duque"})
+				
+	else:
+		current_game_state = GameState.WAITING_FOR_CHALLENGE
+		for i in range(players.size()):
+			if i != currently_player_index and not players[i].is_out:
+				emit_signal("action_requested", i, {"type": "CHALLENGE", "action_name": action_name})
+	emit_signal("game_state_changed")
 #//////////////////////////////
 #EJECUTAR LA ACCION Y FIN DE TURNO
 #//////////////////////////////
