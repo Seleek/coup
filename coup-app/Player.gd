@@ -42,6 +42,24 @@ func update_info(data: Dictionary, index: int):
 		if player_index != GameData.current_player_index and not data.is_out:
 			challenge_button.visible = true
 			pass_button.visible = true
+			
+	if GameData.current_game_state == GameData.GameState.WAITING_FOR_BLOCK:
+		if player_index != GameData.active_action.actor_index and not data.is_out:
+			block_button.visible = true
+			pass_button.visible = true
+			
+	if GameData.current_game_state == GameData.GameState.WAITING_FOR_ACTION:
+		if data.coins >= 10:
+			pass
+
+func _on_ChallengeButton_pressed():
+	if GameData.current_game_state == GameData.GameState.WAITING_FOR_CHALLENGE:
+		GameData.player_response(player_index, "CHALLENGE")
+		
+	elif GameData.current_game_state == GameData.GameState.WAITING_FOR_BLOCK_CHALLENGE:
+		if player_index == GameData.active_action.actor_index:
+			GameData.player_response(GameData.active_action.blocker_index, "CHALLENGE_BLOCK_RESPONSE", "CHALLENGE")
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
