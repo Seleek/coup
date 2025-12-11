@@ -64,3 +64,18 @@ layout_mode = 2
 
 [node name="asesinar" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
 layout_mode = 2
+
+[node name="ActionButtons" type="VBoxContainer" parent="raiz/contenedorJugador"]
+layout_mode = 2
+
+[node name="ChallengeButton" type="Button" parent="raiz/contenedorJugador/ActionButtons"]
+layout_mode = 2
+text = "Desafiar"
+
+[node name="PassButton" type="Button" parent="raiz/contenedorJugador/ActionButtons"]
+layout_mode = 2
+text = "Pasar"
+
+[node name="BlockButton" type="Button" parent="raiz/contenedorJugador/ActionButtons"]
+layout_mode = 2
+text = "Bloquear"
