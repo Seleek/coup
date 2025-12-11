@@ -51,18 +51,6 @@ func update_info(data: Dictionary, index: int):
 	if GameData.current_game_state == GameData.GameState.WAITING_FOR_ACTION:
 		if data.coins >= 10:
 			pass
-
-func _on_ChallengeButton_pressed():
-	if GameData.current_game_state == GameData.GameState.WAITING_FOR_CHALLENGE:
-		GameData.player_response(player_index, "CHALLENGE")
-		
-	elif GameData.current_game_state == GameData.GameState.WAITING_FOR_BLOCK_CHALLENGE:
-		if player_index == GameData.active_action.actor_index:
-			GameData.player_response(GameData.active_action.blocker_index, "CHALLENGE_BLOCK_RESPONSE", "CHALLENGE")
-
-func _on_PassButton_pressed():
-	GameData.player_response(player_index, "PASS")
-
 func _on_BlockButton_pressed():
 	if GameData.active_action.name == "Ayuda Externa":
 		GameData.player_response(player_index, "BLOCK", "Duque")
@@ -73,3 +61,19 @@ func _on_BlockButton_pressed():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+
+func _on_challenge_button_pressed():
+	if GameData.current_game_state == GameData.GameState.WAITING_FOR_CHALLENGE:
+		GameData.player_response(player_index, "CHALLENGE")
+		
+	elif GameData.current_game_state == GameData.GameState.WAITING_FOR_BLOCK_CHALLENGE:
+		if player_index == GameData.active_action.actor_index:
+			GameData.player_response(GameData.active_action.blocker_index, "CHALLENGE_BLOCK_RESPONSE", "CHALLENGE")
+
+func _on_pass_button_pressed():
+	GameData.player_response(player_index, "PASS")
+
+
+func _on_block_button_pressed() -> void:
+	pass # Replace with function body.
