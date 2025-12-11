@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cjutsrhialeqx"]
+[gd_scene load_steps=2 format=3 uid="uid://cjutsrhialeqx"]
+
+[ext_resource type="Script" uid="uid://8dct811b3lo4" path="res://Player.gd" id="1_wbfu4"]
 
 [node name="Game" type="Node2D"]
 
@@ -13,65 +15,52 @@ layout_mode = 0
 offset_right = 1150.0
 offset_bottom = 648.0
 
-[node name="listaJugadores" type="VBoxContainer" parent="raiz"]
+[node name="contenedorJugador" type="HBoxContainer" parent="raiz"]
 layout_mode = 0
 offset_left = -2.0
 offset_top = 272.0
 offset_right = 1148.0
-offset_bottom = 646.0
+offset_bottom = 272.0
+script = ExtResource("1_wbfu4")
 
-[node name="contenedorJugador" type="HBoxContainer" parent="raiz/listaJugadores"]
+[node name="listaJugadores" type="VBoxContainer" parent="raiz/contenedorJugador"]
 layout_mode = 2
 
-[node name="nombreJugador" type="Label" parent="raiz/listaJugadores/contenedorJugador"]
+[node name="nombreJugador" type="Label" parent="raiz/contenedorJugador/listaJugadores"]
 layout_mode = 2
 
-[node name="monedasJugador" type="Label" parent="raiz/listaJugadores/contenedorJugador"]
+[node name="monedasJugador" type="Label" parent="raiz/contenedorJugador/listaJugadores"]
 layout_mode = 2
 
-[node name="cartasInfluencia" type="HBoxContainer" parent="raiz/listaJugadores/contenedorJugador"]
+[node name="cartasInfluencia" type="HBoxContainer" parent="raiz/contenedorJugador"]
 layout_mode = 2
 
-[node name="carta1" type="Panel" parent="raiz/listaJugadores/contenedorJugador/cartasInfluencia"]
+[node name="carta1" type="Panel" parent="raiz/contenedorJugador/cartasInfluencia"]
 layout_mode = 2
 
-[node name="carta2" type="Panel" parent="raiz/listaJugadores/contenedorJugador/cartasInfluencia"]
+[node name="carta2" type="Panel" parent="raiz/contenedorJugador/cartasInfluencia"]
 layout_mode = 2
 
-[node name="acciones" type="Control" parent="raiz"]
-anchors_preset = 0
-offset_right = 1153.0
-offset_bottom = 169.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="raiz/acciones"]
-layout_mode = 0
-offset_right = 1147.0
-offset_bottom = 121.0
-
-[node name="ingresos" type="Button" parent="raiz/acciones/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="raiz/contenedorJugador"]
 layout_mode = 2
 
-[node name="ayudaExterior" type="Button" parent="raiz/acciones/VBoxContainer"]
+[node name="ingresos" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
 layout_mode = 2
 
-[node name="coup" type="Button" parent="raiz/acciones/VBoxContainer"]
+[node name="ayudaExterior" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
 layout_mode = 2
 
-[node name="impuestos" type="Button" parent="raiz/acciones/VBoxContainer"]
+[node name="coup" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
 layout_mode = 2
 
-[node name="robar" type="Button" parent="raiz/acciones/VBoxContainer"]
+[node name="impuestos" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
 layout_mode = 2
 
-[node name="intercambiar" type="Button" parent="raiz/acciones/VBoxContainer"]
+[node name="robar" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
 layout_mode = 2
 
-[node name="asesinar" type="Button" parent="raiz/acciones/VBoxContainer"]
+[node name="intercambiar" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="raiz/acciones"]
-layout_mode = 0
-offset_left = 7.0
-offset_top = 83.0
-offset_right = 118.0
-offset_bottom = 133.0
+[node name="asesinar" type="Button" parent="raiz/contenedorJugador/VBoxContainer"]
+layout_mode = 2

@@ -147,7 +147,7 @@ func resolve_challenge (challenger_index:int):
 		
 	else:
 		emit_signal("log_message", "Resultado del Desafío: %s MIENTE. Desafío exitoso." % actor.name)
-		request_influence_loss(active_Action.actor_index, "por desafio exitoso")
+		request_influence_loss(active_action.actor_index, "por desafio exitoso")
 		active_action.must_execute = false
 
 func resolve_block_challenge(challenger_index: int):
@@ -213,7 +213,58 @@ func execute_action(action_data:Dictionary):
 	next_turn()
 		
 		
+func request_influence_loss(player_index: int, reason: String):
+	current_game_state = GameState.INFLUENCE_LOSS
+	emit_signal("log_message", "%s debe perder una influencia %s. ¡Debe elegir una carta!" % [get_player(player_index).name, reason])
+	emit_signal("action_requested", player_index, {"type": "LOSE_INFLUENCE", "reason": reason})
 	
+func process_influence_loss(player_index: int, card_to_lose: String):
+	var player = get_player(player_index)
+	if player.influence.has(card_to_lose):
+		player.influence.erase(card_to_lose)
+		player.revealed_influence.append(card_to_lose)
+		emit_signal("log_message", "%s perdió su carta %s." % [player.name, card_to_lose])
+		
+		if check_for_game_over(player):
+			return
+		
+		if active_action.has("must_execute") and active_action.must_execute:
+			active_action.must_execute = false
+			current_game_state = GameState.EXECUTING_ACTION
+			execute_action(active_action)
+		else:
+			next_turn()
+			
+func check_for_game_over(player: Dictionary):
+	if player.influence.size() == 0:
+		player.is_out = true
+		emit_signal("log_message", "%s ha sido eliminado." % player.name)
+	
+	var active_players = 0
+	var winner = null
+	for p in players:
+		if not p.is_out:
+			active_players += 1
+			winner = p
+			
+	if active_players <=1:
+		current_game_state = GameState.IDLE 
+		emit_signal("log_message", "¡Juego Terminado! El ganador es %s." % winner.name)
+		return true
+	return false
+
+func next_turn():
+	active_action = {}
+	
+	var next_index = (currently_player_index + 1) % players.size()
+	while players[next_index].is_out:
+		next_index = (next_index + 1) % players.size()
+		
+	currently_player_index = next_index
+	current_game_state = GameState.WAITING_FOR_ACTION
+	
+	emit_signal("log_message", "\n--- Es el turno de %s. Monedas: %d. ---" % [get_current_player().name, get_current_player().coins])
+	emit_signal("game_state_changed")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
