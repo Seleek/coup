@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjutsrhialeqx"]
+
+[ext_resource type="Script" uid="uid://8dct811b3lo4" path="res://Player.gd" id="1_wbfu4"]
+
+[node name="Player" type="Node2D"]
+
+[node name="contenedorJugador" type="HBoxContainer" parent="."]
+offset_left = -2.0
+offset_top = 272.0
+offset_right = 1148.0
+offset_bottom = 373.0
+script = ExtResource("1_wbfu4")
+
+[node name="listaJugadores" type="VBoxContainer" parent="contenedorJugador"]
+layout_mode = 2
+
+[node name="nombreJugador" type="Label" parent="contenedorJugador/listaJugadores"]
+layout_mode = 2
+
+[node name="monedasJugador" type="Label" parent="contenedorJugador/listaJugadores"]
+layout_mode = 2
+
+[node name="cartasInfluencia" type="HBoxContainer" parent="contenedorJugador"]
+layout_mode = 2
+
+[node name="carta1" type="Panel" parent="contenedorJugador/cartasInfluencia"]
+layout_mode = 2
+
+[node name="carta2" type="Panel" parent="contenedorJugador/cartasInfluencia"]
+layout_mode = 2
+
+[node name="ActionButtons" type="VBoxContainer" parent="contenedorJugador"]
+layout_mode = 2
+
+[node name="ChallengeButton" type="Button" parent="contenedorJugador/ActionButtons"]
+layout_mode = 2
+text = "Desafiar"
+
+[node name="PassButton" type="Button" parent="contenedorJugador/ActionButtons"]
+layout_mode = 2
+text = "Pasar"
+
+[node name="BlockButton" type="Button" parent="contenedorJugador/ActionButtons"]
+layout_mode = 2
+text = "Bloquear"

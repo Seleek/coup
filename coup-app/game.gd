@@ -1,8 +1,21 @@
 extends Control
 
+const PLAYER_SCENE = preload("res://Player.tscn")
+var player_ui_nodes = []
+
 
 func _ready():
-	GameData.init_game(["Jugador A", "Jugador B", "Jugador C"])
+	GameData.connect("game_state_changed", Callable(self, "update_ui"))
+	GameData.connect("log_message", Callable(self, "append_to_log"))
+	GameData.connect("action_requested", Callable(self, "handle_action_request"))
+	var names = ["Alice", "Bob", "Charlie"]
+	GameData.init_game(names)
+	
+	for i in range(names.size()):
+		var player_ui = PLAYER_SCENE.instance()
+		$PlayerContainer.add_child(player_ui)
+		player_ui_nodes.append(player_ui)
+	
 	update_ui()
 	
 func update_ui():
