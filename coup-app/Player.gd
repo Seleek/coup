@@ -38,7 +38,10 @@ func update_info(data: Dictionary, index: int):
 	pass_button.visible = false
 	block_button.visible = false
 	
-	
+	if GameData.current_game_state == GameData.GameState.WAITING_FOR_CHALLENGE:
+		if player_index != GameData.current_player_index and not data.is_out:
+			challenge_button.visible = true
+			pass_button.visible = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
