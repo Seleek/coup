@@ -30,10 +30,23 @@ func update_ui():
 	if is_waiting_for_action:
 		$ActionPanel/GridContainer/Coup.disabled = current_player_data.coins < 7
 		$ActionPanel/GridContainer/Asesinar.disable = current_player_data.coins <3
-	#BOTONES
+
+
+#///////////////////
+#Manejo de la logica de turno
+#///////////////////
+func handle_action_request(player_index: int, options:Dictionary):
+	if options.type == "LOSE_INFLUENCE":
+		var card_to_lose = GameData.get_player(player_index).influence[0]
+		GameData.process_influence_loss(player_index, card_to_lose)
 	
-	
-	
+	if options.type == "CHALLENGE_BLOCK":
+		GameData.player_response(GameData.active_Action.blocker_index, "CHALLENGE_BLOCK_RESPONSE", "PASS")
+
+#///////////////////////
+#//////////////////////
+		
+		
 		
 func _process(delta: float) -> void:
 	pass
